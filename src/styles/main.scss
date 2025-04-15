@@ -1,0 +1,27 @@
+/*
+ * Estilos principales del sitio
+ * Organizado con arquitectura ITCSS
+ */
+
+// Settings: Variables, configuraciones, etc.
+@import '00-settings/settings';
+
+// Tools: Mixins, funciones, etc.
+@import '01-tools/mixins';
+@import '01-tools/functions';
+
+// Generic: Estilos de reset, normalización, etc.
+@import '02-generic/normalize';
+@import '02-generic/generic';
+
+// Elements: Estilos para elementos HTML básicos
+@import '03-elements/elements';
+
+// Objects: Patrones de diseño sin decoración
+@import '04-objects/objects';
+
+// Components: Componentes específicos de la UI
+@import '05-components/components';
+
+// Utilities: Clases utilitarias
+@import '06-utilities/utilities';

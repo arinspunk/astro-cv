@@ -1,0 +1,648 @@
+/*
+    Components
+*/
+
+.c-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9999;
+    top: -($bu * 8);
+    height: $bu * 8;
+    @include var(background-color, --color-paper, $color-paper);
+    @include var(font-size, --p-size-s, $p-size-s);
+    @include transition(.3s ease-out);
+    @include keyframes(header-appears) {
+        100% {
+            top: 0;
+        }
+    }
+    @include animation(.25s ease header-appears forwards .375s); 
+    @media screen and (min-width: $bp--medium) {
+        @include var(font-size, --p-size-m, $p-size-m);
+        height: $bu * 9;
+        top: -($bu * 9);
+    }  
+    @media screen and (min-width: $bp--xlarge) {
+        @include var(font-size, --p-size-l, $p-size-l);
+        height: $bu * 10;
+        top: -($bu * 10);
+    } 
+    &--hide {
+        @include translateY(-100%);
+    } 
+    &--blog {
+        @include var(background-color, --color-deep, $color-deep);
+    }
+    &__logo,
+    &__menu {
+        position: relative;
+        top: 6px;
+        @media screen and (min-width: $bp--medium) {
+            top: 8px;
+        }  
+    }
+    &__logo-link {
+        text-decoration: none;
+    }
+    &__menu {
+        float: right;
+        @media screen and (min-width: $bp--medium) {
+            float: none;
+        }  
+    }
+    &__menu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: right;
+        @media screen and (min-width: $bp--medium) {
+            text-align: left;
+        }  
+    }
+    &__menu-item {
+        display: inline-block;
+        margin-right: 10px;
+        @media screen and (min-width: $bp--large) {
+            margin-right: 30px;
+        }  
+        &--language {
+            float: right;
+            margin: 0 0 0 10px;
+            @media screen and (min-width: $bp--medium) {
+                margin: 0 0 0 20px;
+            }  
+        }
+    }
+    &__menu-link {
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+        &--featured {
+            text-decoration: underline;
+            text-decoration-color: tint($color-link, 0%);
+            &:hover {
+                text-decoration-color: tint($color-link, 100%);
+            }
+        }
+        &--btn {
+            padding: 1px 5px;
+            border: 1.5px solid $color-link;
+            border-radius: 4px;
+            @include var(color, --color-link, $color-link);
+            transition: .3s ease;
+            @media screen and (min-width: $bp--large) {
+                padding: 2px 6px;
+                border: 2px solid tint($color-link, 0%);
+            }  
+            &:hover {
+                text-decoration: none;
+                @include var(background-color, --color-link, $color-link);
+                @include var(color, --color-paper, $color-paper);
+            }
+            .blog & {
+                // color: $color-link;
+                // color: var(--color-link);
+                &:hover {
+                    @include var(color, --color-paper, $color-paper);
+                }
+            }
+        }
+    }
+}
+.c-info {
+    overflow: hidden;
+    padding-top: 185px;
+    @media screen and (min-width: $bp--medium) {
+        padding-top: 179px;
+    }
+    @media screen and (min-width: $bp--xlarge) {
+        padding-top: 242px;
+    }
+    &--blog {
+        margin-bottom: 60px;
+    }
+    &__text {
+        opacity: 0;
+        z-index: 10;
+        @include translate(0%,100px);
+        @include keyframes(appears-text) {
+            100% {
+                opacity: 1;
+                @include translate(0%,0%);
+            }
+        }
+        @include animation(.5s ease appears-text forwards .75s); 
+        &--blog {
+            opacity: 1;
+            animation: none;
+            @include translate(0%,0%);
+        }
+    }
+    &__cite {
+        margin: 0 0 50px;
+        @media screen and (min-width: $bp--medium) {
+            margin: 0 0 54px;
+        }  
+        @media screen and (min-width: $bp--xlarge) {
+            margin: 0 0 60px;
+        }  
+    }
+    &__list {
+        padding-left: 25px;
+        @media screen and (min-width: $bp--medium) {
+            padding: 0;
+        }  
+    }
+    &__time {
+        @include var(font-size, --p-size-s, $p-size-s);
+    }
+    &__sun {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include translate(-50%,0%);
+        display: block;
+        height: 100px;
+        width: 100px;
+        border-radius: 100%;
+        @include var(background-color, --color-sun, $color-sun);
+        opacity: 0;
+        @include keyframes(sunrise) {
+            100% {
+                opacity: 1;
+                @include translate(-50%,-50%);
+            }
+        }
+        @include animation(2s ease sunrise forwards); 
+        @media screen and (min-width: $bp--medium) {
+            height: 360px;
+            width: 360px;
+        }  
+        @media screen and (min-width: $bp--large) {
+            height: 360px;
+            width: 360px;
+            @include keyframes(sunrise) {
+                100% {
+                    opacity: 1;
+                    @include translate(-50%,-120%);
+                }
+            }
+        }  
+        @media screen and (min-width: $bp--xlarge) {
+            height: 400px;
+            width: 400px;
+            @include keyframes(sunrise) {
+                100% {
+                    opacity: 1;
+                    @include translate(-50%,-150%);
+                }
+            }
+        }  
+    }
+    &__sun-wrap {
+        overflow: hidden;
+        height: 400px;
+        position: absolute;
+        top: -70px;
+        right: -90px;
+        @media screen and (min-width: $bp--medium) {
+            position: relative;
+            top: 0;
+            right: 0;
+            height: 600px;
+        }
+        @media screen and (min-width: $bp--large) {
+            height: auto;
+        }
+    }
+    &__sun-ray {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include translate(-50%,-50%);
+        height: 106px;
+        width: 106px;
+        @include var(border, --color-sun, $color-sun);
+        border-radius: 100%;
+        opacity: 0;
+        @include keyframes(shine) {
+            33% {
+                opacity: 1;
+            }
+            100% {
+                height: 200px;
+                width: 200px;
+                opacity: 0;
+            }
+        }
+        @include animation(3s ease-in shine infinite); 
+        @media screen and (min-width: $bp--medium) {
+            height: 366px;
+            width: 366px;
+            @include keyframes(shine) {
+                 33% {
+                    opacity: 1;
+                }
+                100% {
+                    height: 600px;
+                    width: 600px;
+                    opacity: 0;
+                }
+            }
+        }  
+        @media screen and (min-width: $bp--xlarge) {
+            height: 406px;
+            width: 406px;
+             @include keyframes(shine) {
+                33% {
+                    opacity: 1;
+                }
+                100% {
+                    height: 680px;
+                    width: 680px;
+                    opacity: 0;
+                }
+            }
+        }  
+        &:nth-child(2) {
+            @include animation-delay(1s); 
+        }
+        &:nth-child(3) {
+            @include animation-delay(2s);
+        }
+    }
+}
+.c-skills {
+    margin-top: 69px;
+    @media screen and (min-width: $bp--medium) {
+        margin-top: 77px;
+    }  
+    @media screen and (min-width: $bp--large) {
+        margin-top: 182px;
+    }
+}
+.c-history {
+    margin-top: 45px;
+    padding-top: 56px;
+    @include var(background-color, --color-paper, #fff7f1);
+    @media screen and (min-width: $bp--medium) {
+        margin-top: 53px;
+        padding-top: 72px;
+    }  
+    @media screen and (min-width: $bp--large) {
+        margin-top: 102px;
+        padding-top: 80px;
+    }  
+    @media screen and (min-width: $bp--xlarge) {
+        margin-top: 124px;
+        padding-top: 88px;
+    }  
+    &__ocean {
+        position: relative;
+        margin-top: 73px;
+        padding: 74px 0 0;
+        @include var(color, --color-paper, $color-paper);
+        border-top: 19px solid $color-link;
+        @include linear-gradient(180deg,$color-link 0%,$color-deep 95%);
+        a {
+            @include var(color, --color-paper, $color-paper);
+            text-decoration-color: tint($color-paper, 0%); 
+            &:hover {
+                text-decoration-color: tint($color-paper, 100%); 
+            }
+        }
+        @media screen and (min-width: $bp--medium) {
+            margin-top: 110px;
+            padding: 90px 0 0;
+        } 
+        @media screen and (min-width: $bp--large) {
+            border-top: 30px solid $color-link;
+        }
+    }
+    &__ocean-waves {
+        position: absolute;
+        top: -30px;
+        right: 0;
+        left: 0;
+        @include keyframes(waves) {
+            50% {
+                top: -25px;
+            }
+            100% {
+                top: -30px;
+            }
+        }
+        @include animation(3s ease waves infinite); 
+        @media screen and (min-width: $bp--medium) {
+            top: -40px;
+            @include keyframes(waves) {
+                50% {
+                    top: -30px;
+                }
+                100% {
+                    top: -40px;
+                }
+            }
+        }  
+        @media screen and (min-width: $bp--large) {
+            top: -65px;
+            @include keyframes(waves) {
+                50% {
+                    top: -48px;
+                }
+                100% {
+                    top: -65px;
+                }
+            }
+        }  
+        @media screen and (min-width: $bp--xlarge) {
+            top: -75px;
+            @include keyframes(waves) {
+                50% {
+                    top: -60px;
+                }
+                100% {
+                    top: -75px;
+                }
+            }
+        }  
+    }
+    &__ocean-block {
+        margin-bottom: 61px;
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+        @media screen and (min-width: $bp--medium) {
+            margin-bottom: 96px;
+        }  
+        @media screen and (min-width: $bp--xlarge) {
+            margin-bottom: 112px;
+        }  
+    }
+    &__subtitle {
+        transition: .15s ease;
+        &--fixed {
+            @media screen and (min-width: $bp--large) {
+                position: fixed;
+                top: 60px;
+            }  
+        }
+        &--fixed-out {
+            @media screen and (min-width: $bp--large) {
+                top: -60px;
+            }  
+        }
+    }
+}
+.c-abism {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2000px;
+    @include var(background-color, --color-deep, $color-deep);
+    &__fish-wrap {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &:hover {
+            @include keyframes(fish) {
+                10% {
+                    $fish-size: 240px;
+                    width: $fish-size;
+                    height: $fish-size;
+                    max-width: $fish-size;
+                    opacity: 1;
+                }
+                15% {
+                    $fish-size: 200px;
+                    width: $fish-size;
+                    height: $fish-size;
+                    max-width: $fish-size;
+                }
+                20% {
+                    $fish-size: 220px;
+                    width: $fish-size;
+                    height: $fish-size;
+                    max-width: $fish-size;
+                }
+                100% {
+                    $fish-size: 220px;
+                    width: $fish-size;
+                    height: $fish-size;
+                    max-width: $fish-size;
+                    opacity: 1;
+                }
+            }
+            .c-abism__fish {
+                @include animation(1.7s ease-in fish forwards); 
+            }
+            .c-abism__fish-light {
+                animation-play-state: paused;
+                opacity: 0;
+            }
+            .c-abism__text {
+                font-family: $fonts-sans-alt;
+                font-family: var(--fonts-sans-alt);
+                opacity: 1;
+                @include rotate(5deg);
+            }
+        }
+    }
+    @include keyframes(pulse) {
+        60% {
+            width: 8px;
+            height: 8px;
+            filter: blur(3px);
+        }
+        100% {
+            width: 3px;
+            height: 3px; 
+            filter: blur(1px);
+        }
+    }
+    &__fish {
+        $fish-size: 100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: $fish-size;
+        height: $fish-size;
+        max-width: $fish-size;
+        opacity: 0;
+        @include translate(-50%,-50%);
+        @include transition(.1s ease);
+    }
+    &__fish-light {
+        width: 3px;
+        height: 3px;
+        border-radius: 100%;
+        @include var(background-color, --color-light, $color-light);
+        filter: blur(1px);
+        @include animation(3s ease pulse infinite); 
+        @include transition(.3s ease);
+    }
+    &__text {
+        position: absolute;
+        bottom: -110px;
+        left: 0;
+        @include var(color, --color-light, $color-light);
+        opacity: 0;
+        width: 150px;
+        @include transition(.1s ease .1s);
+    }
+}
+.c-footer {
+    display: flex;
+    align-items: center;
+    padding: 32px 0;
+    @include var(background-color, --color-deep, $color-deep);
+    @media screen and (min-width: $bp--medium) {
+        height: $bu * 12;
+    }
+    &--blog {
+        margin-top: 100px;
+        @media screen and (min-width: $bp--medium) {
+            margin-top: 150px;
+        }
+        @media screen and (min-width: $bp--large) {
+            margin-top: 200px;
+        }
+    }
+    &__credits,
+    &__menu {
+        position: relative;
+        margin: 0;
+        @include var(color, --color-paper, $color-paper);
+    }
+    &__menu {
+        margin-bottom: 25px;
+        @media screen and (min-width: $bp--medium) {
+            order: 1;
+            margin-bottom: 0;
+        }
+    }
+    &__menu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    &__menu-item {
+        display: inline-block;
+        margin-right: 15px;
+        @media screen and (min-width: $bp--large) {
+            margin-right: 40px;
+        }
+    }
+    &__menu-link {
+        display: block;
+        @include var(color, --color-paper, $color-paper);
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    &__menu-link-arrow {
+        position: relative;            
+        display: inline-block;
+        top: -3px;
+        left: -1px;
+        @include rotate(-45deg);
+    }
+}
+.c-article {
+    margin-bottom: 40px;
+    &:first-of-type {
+        margin-top: 0;
+        @media screen and (min-width: $bp--medium) {
+            margin-top: 30px;
+        }
+    }
+    &__title {
+        &:first-of-type {
+            margin-top: 5px;
+            @media screen and (min-width: $bp--medium) {
+                margin-top: 10px;
+            }
+        }
+        &:before {
+            display: none;
+        }
+    }
+    &__link {
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+.c-post {
+    &__body-img {
+        margin: 35px auto 30px;
+        @media screen and (min-width: $bp--medium) {
+            margin: 45px auto 40px;
+        }
+    }
+    &__body-iframe {
+        margin: 5px auto 25px;
+        @media screen and (min-width: $bp--medium) {
+            margin: 0 auto 35px;
+        }
+    }
+}
+.c-messages {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    @media screen and (min-width: $bp--medium) {
+        flex-direction: row;
+    }  
+}
+.c-message {
+    width: 100%;
+    display: block;
+    margin: 40px 0 0;
+    padding: 18.58px 15px;
+    border-radius: 2.5px;
+    border: 1px solid;
+    @include var(border-color, --color-link, $color-link);
+    // background-color: $color-link;
+    // background-color: var(--color-link);
+    @include var(color, --color-paper, $color-paper);
+    text-align: center;
+    @include var(font-size, --p-size-s, $p-size-s);
+    text-decoration: none;
+    & + .c-message {
+        margin-top: 25px;
+    }
+    @media screen and (min-width: $bp--medium) {
+        width: calc(50% - 10px);
+        & + .c-message {
+            margin-top: 40px;
+        }
+    }  
+    span {
+        text-decoration: underline;
+    }
+    &:hover {
+        span {
+            text-decoration: none;
+        }
+    }
+}
+.appears {
+    opacity: 0;
+    @include translateY(120px);
+    @include transition(1s ease);
+    &--in {
+        opacity: 1;
+        transform: none;
+    }
+}

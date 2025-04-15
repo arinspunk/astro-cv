@@ -1,0 +1,264 @@
+/*
+    Elements
+*/
+
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    height: 100%;
+    @media screen and (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: $fonts-sans;
+    font-family: var(--fonts-sans);
+    @include var(color, --color-ink, $color-ink);
+    @include legibility();
+    @include var(font-size, --p-size-s, $p-size-s);
+    @include var(line-height, --p-lh-s, $p-lh-s);
+    background-color: #fffcf9;
+    @media screen and (min-width: $bp--medium) {
+        @include var(font-size, --p-size-m, $p-size-m);
+        @include var(line-height, --p-lh-m, $p-lh-m);
+    }  
+    @media screen and (min-width: $bp--xlarge) {
+        @include var(font-size, --p-size-l, $p-size-l);
+        @include var(line-height, --p-lh-l, $p-lh-l);
+    }  
+    &.blog {
+        @include var(background-color, --color-deep, $color-deep);
+        @include var(color, --color-paper, $color-paper);
+    }
+}
+
+img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+    font-family: $fonts-sans-alt;
+    font-family: var(--fonts-sans-alt);
+    position: relative;
+    font-weight: normal;
+    font-variant-ligatures: common-ligatures;
+    @include transition(font-size .1s ease); 
+}
+
+h1, .h1 {
+    @include var(font-size, --h1-size-s, $h1-size-s);
+    @include var(line-height, --h1-lh-s, $h1-lh-s);
+    margin: 0 0 43px;
+    @media screen and (min-width: $bp--medium) {
+        @include var(font-size, --h1-size-m, $h1-size-m);
+        @include var(line-height, --h1-lh-m, $h1-lh-m);
+        margin: 0 0 46px;
+    }  
+    @media screen and (min-width: $bp--xlarge) {
+        @include var(font-size, --h1-size-l, $h1-size-l);
+        @include var(line-height, --h1-lh-l, $h1-lh-l);
+        margin: 0 0 48px;
+    }  
+}
+
+.h1 {
+    &--blog {
+        @media screen and (min-width: $bp--xlarge) {
+            margin: 0 0 55px;
+        }  
+    }
+}
+
+h2, .h2 {
+    position: relative;
+    @include var(font-size, --h2-size-s, $h2-size-s);
+    @include var(line-height, --h2-lh-s, $h2-lh-s);
+    margin: 0 0 28px;
+    &:before {
+        content: '';
+        position: absolute;
+        bottom: -11px;
+        left: 15px;
+        right: 15px;
+        height: 1px;
+        @include var(background-color, --color-paper, $color-paper);
+        opacity: .2;
+        @media screen and (min-width: $bp--medium) {
+            left: 20px;
+            right: 20px;
+        }
+        @media screen and (min-width: $bp--large) {
+            display: none;
+        }  
+        .blog & {
+            display: none;
+        }
+    }
+    &.negative:before {
+        @include var(background-color, --color-deep, $color-deep);
+        opacity: .15;
+    }
+    @media screen and (min-width: $bp--medium) {
+        @include var(font-size, --h2-size-m, $h2-size-m);
+        @include var(line-height, --h2-lh-m, $h2-lh-m);
+        margin: 0 0 32px;
+    }  
+    @media screen and (min-width: $bp--xlarge) {
+        @include var(font-size, --h2-size-l, $h2-size-l);
+        @include var(line-height, --h2-lh-l, $h2-lh-l);
+        margin: 0 0 42px;
+    }  
+}
+
+h3, .h3 {
+    @include var(font-size, --h3-size-s, $h3-size-s);
+    @include var(line-height, --h3-lh-s, $h3-lh-s);
+    margin: 0 0 13px;
+    &:first-of-type {
+        margin-top: 14px;
+    }
+    .blog & {
+        margin: -2px 0 20px;
+    }
+    @media screen and (min-width: $bp--medium) {
+        @include var(font-size, --h3-size-m, $h3-size-m);
+        @include var(line-height, --h3-lh-m, $h3-lh-m);
+        margin: 0 0 16px;
+        &:first-of-type {
+            margin-top: 13px;
+        }
+    }  
+    @media screen and (min-width: $bp--xlarge) {
+        @include var(font-size, --h3-size-l, $h3-size-l);
+        @include var(line-height, --h3-lh-l, $h3-lh-l);
+        margin: 76px 0 24px;
+        &:first-of-type {
+            margin-top: 16px;
+        }
+    }  
+}
+
+p, ul, ol, pre, code, .gist {
+    @include var(font-size, --p-size-s, $p-size-s);
+    font-variant-ligatures: common-ligatures;
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding: 0;
+    @media screen and (min-width: $bp--medium) {
+        @include var(font-size, --p-size-m, $p-size-m);
+    }  
+    @media screen and (min-width: $bp--xlarge) {
+        @include var(font-size, --p-size-l, $p-size-l);
+        margin-bottom: 30px;
+    }  
+}
+
+ul, ol {
+    padding: 0 0 0 20px;
+    @media screen and (min-width: $bp--medium) {
+        padding: 0;
+        & ul,
+        & ol {
+            padding: 0 0 0 20px;
+            margin: 0;
+        }
+    }  
+}
+
+code {
+    font-family: $font-mono;
+    font-size: 16px;
+    @include var(color, --color-code, $color-code);
+    @include var(background-color, --color-terminal, $color-terminal);
+    border-radius: 3px;
+    padding: 0 6px;
+    @media screen and (min-width: $bp--medium) {
+        font-size: 18px;
+    }  
+    @media screen and (min-width: $bp--xlarge) {
+        font-size: 18.5px;
+    }  
+}
+
+a {
+    text-decoration: underline;
+    @include var(color, --color-ink, $color-ink);
+    //text-decoration-thickness: 0.0625em;
+    text-underline-offset: .15em;
+    text-decoration-color: tint($color-link, 0%);
+    text-decoration-skip-ink: auto;
+    &:link {}
+    &:visited {
+        text-decoration: underline;
+        text-decoration-color: tint($color-link, 0%);
+    }
+    &:hover {
+        text-decoration: none;
+        text-decoration-color: tint($color-link, 100%);
+    }
+    @media (pointer: coarse) {
+        &:hover {
+            color: unset;
+            text-decoration: unset;
+        }
+    }
+    &:focus {}
+    &:active {}
+    .blog & {
+        @include var(color, --color-paper, $color-paper);
+    }
+}
+
+figure {
+    padding: 0 25px;
+    margin: 0 0 25px;
+    @media screen and (min-width: $bp--medium) {
+        margin: 0 0 35px;
+    }  
+    blockquote, p {
+        margin: 0;
+    }
+    &.figure-img {
+        padding: 0;
+        img {
+            margin-bottom: 0;
+        }
+        figcaption {
+            padding: 0;
+        }
+    }
+}
+
+figcaption {
+    text-align: right;
+    @include var(font-size, --p-size-s, $p-size-s);
+    margin-top: 4px;
+    @media screen and (min-width: $bp--medium) {
+        margin-top: 10px;
+    }  
+}
+
+cite {
+    font-style: normal;
+}
+
+blockquote {
+    padding: 0 0 0 15px;
+    margin: 0 0 20px;
+    border-left: 4px solid $color-link;
+    @media screen and (min-width: $bp--medium) {
+        padding: 0 0 0 20px;
+        margin: 0 0 25px;
+        border-left: 5px solid $color-link;
+    }
+}

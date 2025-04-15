@@ -1,0 +1,281 @@
+/*
+    Settings
+*/
+
+/* 
+ * TOKENS DE DISEÑO
+ * Organizados por categorías para mejor mantenimiento
+ */
+
+/* =====================================
+   ESPACIADO Y LAYOUT
+   ===================================== */
+
+/* Basic Unit */
+$bu-value: 5;
+$bu: $bu-value * 1px;
+
+// Media query values (no unit)
+$bp--medium-value: 48; 
+$bp--large-value: 63.75;
+$bp--xlarge-value: 87.5;
+
+// Media queries in ems
+$bp--medium: $bp--medium-value * 1em; /* 768px */
+$bp--large: $bp--large-value * 1em; /* 1020px  */
+$bp--xlarge: $bp--xlarge-value * 1em; /* 1400px */
+
+/* Set custom properties for layout and sizing */
+$max-content-width: 92.5rem; /* 1480px */
+
+/* =====================================
+   COLORES
+   ===================================== */
+
+$color-paper: #fff;
+$color-ink: #00000B;
+$color-link: #0000FF;
+$color-deep: #00000B;
+$color-light: #00FFF3;
+$color-sun: #FFE600;
+$color-sand: #fffaf6;
+$color-terminal: #1c1c3d;
+$color-code: #e6e6ff;
+
+/* =====================================
+   TIPOGRAFÍA
+   ===================================== */
+
+/* Familias tipográficas */
+$fonts-base-sans: Helvetica, Arial, sans-serif;
+$fonts-base-serif: Georgia, 'Times New Roman', Times, serif;
+
+$fonts-sans: 'sawton_industrialthin', $fonts-base-sans; 
+$fonts-sans-alt: 'sawton_bauhausthin', $fonts-base-sans; 
+$fonts-serif: $fonts-base-serif; /* No web fonts specified for Serif */
+$font-mono: 'Space Mono', monospace;
+
+/* Set base text size for all calculations */
+$text-base-size: 16;
+
+/* Preprocessed for fallbacks - change px values here for all font sizing */
+$p-size-l-px: 21;
+$p-size-m-px: 19;
+$p-size-s-px: 17;
+
+$h1-size-l-px: 80;
+$h1-size-m-px: 72;
+$h1-size-s-px: 41;
+
+$h2-size-l-px: 51;
+$h2-size-m-px: 46;
+$h2-size-s-px: 33;
+
+$h3-size-l-px: 32;
+$h3-size-m-px: 30;
+$h3-size-s-px: 21;
+
+/* Font size rem values (needed for dynamic sizing) */
+$p-size-l-value: $p-size-l-px / $text-base-size;
+$p-size-m-value: $p-size-m-px / $text-base-size;
+$p-size-s-value: $p-size-s-px / $text-base-size;
+
+$h1-size-l-value: $h1-size-l-px / $text-base-size;
+$h1-size-m-value: $h1-size-m-px / $text-base-size;
+$h1-size-s-value: $h1-size-s-px / $text-base-size;
+
+$h2-size-l-value: $h2-size-l-px / $text-base-size;
+$h2-size-m-value: $h2-size-m-px / $text-base-size;
+$h2-size-s-value: $h2-size-s-px / $text-base-size;
+
+$h3-size-l-value: $h3-size-l-px / $text-base-size;
+$h3-size-m-value: $h3-size-m-px / $text-base-size;
+$h3-size-s-value: $h3-size-s-px / $text-base-size;
+
+/* Font sizes in rems */
+$p-size-l: $p-size-l-value * 1rem;
+$p-size-m: $p-size-m-value * 1rem;
+$p-size-s: $p-size-s-value * 1rem;
+
+$h1-size-l: $h1-size-l-value * 1rem;
+$h1-size-m: $h1-size-m-value * 1rem;
+$h1-size-s: $h1-size-s-value * 1rem;
+
+$h2-size-l: $h2-size-l-value * 1rem;
+$h2-size-m: $h2-size-m-value * 1rem;
+$h2-size-s: $h2-size-s-value * 1rem;
+
+$h3-size-l: $h3-size-l-value * 1rem;
+$h3-size-m: $h3-size-m-value * 1rem;
+$h3-size-s: $h3-size-s-value * 1rem;
+
+/* Line-height */
+$p-lh-l-value: 30;
+$p-lh-m-value: 25;
+$p-lh-s-value: 25;
+
+$h1-lh-l-value: 90;
+$h1-lh-m-value: 80;
+$h1-lh-s-value: 50;
+
+$h2-lh-l-value: 70;
+$h2-lh-m-value: 60;
+$h2-lh-s-value: 45;
+
+$h3-lh-l-value: 50;
+$h3-lh-m-value: 45;
+$h3-lh-s-value: 25;
+
+$p-lh-l: $p-lh-l-value / $p-size-l-px;
+$p-lh-m: $p-lh-m-value / $p-size-m-px;
+$p-lh-s: $p-lh-s-value / $p-size-s-px;
+
+$h1-lh-l: $h1-lh-l-value / $h1-size-l-px;
+$h1-lh-m: $h1-lh-m-value / $h1-size-m-px;
+$h1-lh-s: $h1-lh-s-value / $h1-size-s-px;
+
+$h2-lh-l: $h2-lh-l-value / $h2-size-l-px;
+$h2-lh-m: $h2-lh-m-value / $h2-size-m-px;
+$h2-lh-s: $h2-lh-s-value / $h2-size-s-px;
+
+$h3-lh-l: $h3-lh-l-value / $h3-size-l-px;
+$h3-lh-m: $h3-lh-m-value / $h3-size-m-px;
+$h3-lh-s: $h3-lh-s-value / $h3-size-s-px;
+
+/* Responsive text-size spacer */
+$body-text-spacer-s: $p-size-s;
+$body-text-spacer-m: $p-size-m;
+$body-text-spacer-l: $p-size-l;
+
+/* =====================================
+   DEFINICIÓN DE CSS CUSTOM PROPERTIES
+   ===================================== */
+
+:root {
+  /* Layout */
+  --max-content-width: #{$max-content-width};
+  --bu: #{$bu};
+
+  /* Colores */
+  --color-paper: #{$color-paper};
+  --color-ink: #{$color-ink};
+  --color-link: #{$color-link};
+  --color-deep: #{$color-deep};
+  --color-light: #{$color-light};
+  --color-sun: #{$color-sun};
+  --color-sand: #{$color-sand};
+  --color-terminal: #{$color-terminal};
+  --color-code: #{$color-code};
+
+  /* Tipografía - Familias */
+  --fonts-base-sans: #{$fonts-base-sans};
+  --fonts-base-serif: #{$fonts-base-serif};
+  --fonts-sans: #{$fonts-sans};
+  --fonts-sans-alt: #{$fonts-sans-alt};
+  --fonts-serif: #{$fonts-serif};
+  --font-mono: #{$font-mono};
+
+  /* Tipografía - Tamaños */
+  --p-size-l-value: #{$p-size-l-value};
+  --p-size-m-value: #{$p-size-m-value};
+  --p-size-s-value: #{$p-size-s-value};
+  --h1-size-l-value: #{$h1-size-l-value};
+  --h1-size-m-value: #{$h1-size-m-value};
+  --h1-size-s-value: #{$h1-size-s-value};
+  --h2-size-l-value: #{$h2-size-l-value};
+  --h2-size-m-value: #{$h2-size-m-value};
+  --h2-size-s-value: #{$h2-size-s-value};
+  --h3-size-l-value: #{$h3-size-l-value};
+  --h3-size-m-value: #{$h3-size-m-value};
+  --h3-size-s-value: #{$h3-size-s-value};
+
+  /* Tipografía - Tamaños en rem */
+  --p-size-l: #{$p-size-l};
+  --p-size-m: #{$p-size-m};
+  --p-size-s: #{$p-size-s};
+  --h1-size-l: #{$h1-size-l};
+  --h1-size-m: #{$h1-size-m};
+  --h1-size-s: #{$h1-size-s};
+  --h2-size-l: #{$h2-size-l};
+  --h2-size-m: #{$h2-size-m};
+  --h2-size-s: #{$h2-size-s};
+  --h3-size-l: #{$h3-size-l};
+  --h3-size-m: #{$h3-size-m};
+  --h3-size-s: #{$h3-size-s};
+
+  /* Tipografía - Interlineado */
+  --p-lh-l: #{$p-lh-l};
+  --p-lh-m: #{$p-lh-m};
+  --p-lh-s: #{$p-lh-s};
+  --h1-lh-l: #{$h1-lh-l};
+  --h1-lh-m: #{$h1-lh-m};
+  --h1-lh-s: #{$h1-lh-s};
+  --h2-lh-l: #{$h2-lh-l};
+  --h2-lh-m: #{$h2-lh-m};
+  --h2-lh-s: #{$h2-lh-s};
+  --h3-lh-l: #{$h3-lh-l};
+  --h3-lh-m: #{$h3-lh-m};
+  --h3-lh-s: #{$h3-lh-s};
+  
+  /* Espaciado responsivo */
+  --body-text-spacer: #{$body-text-spacer-s};
+  
+  /* Variables para UI */
+  --page-count: 1;
+  
+  /* Tema claro (default) */
+  --theme-background: var(--color-paper);
+  --theme-foreground: var(--color-ink);
+  --theme-primary: var(--color-link);
+  --theme-accent: var(--color-sun);
+  
+  /* Transiciones */
+  --transition-fast: 0.15s ease-out;
+  --transition-medium: 0.3s ease-out;
+  --transition-slow: 0.5s ease-out;
+  
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  
+  /* Border radius */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+}
+
+/* Media queries para espaciado responsivo */
+@media screen and (min-width: $bp--medium) {
+  :root {
+    --body-text-spacer: #{$body-text-spacer-m};
+  }
+}
+
+@media screen and (min-width: $bp--large) {
+  :root {
+    --body-text-spacer: #{$body-text-spacer-l};
+  }
+}
+
+/* Media queries para modo oscuro */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --theme-background: var(--color-deep);
+    --theme-foreground: var(--color-paper);
+    --theme-primary: var(--color-light);
+    --theme-accent: var(--color-sun);
+  }
+}
+
+/* =====================================
+   WEBFONTS
+   ===================================== */
+
+/* 
+  Las declaraciones @font-face han sido movidas al componente FontLoader.astro
+  para una carga optimizada y evitar CLS (Cumulative Layout Shift).
+  
+  Ver: src/components/FontLoader.astro
+*/

@@ -1,0 +1,66 @@
+/*
+    Utilities
+*/
+
+// Importar archivo específico de temas
+@import 'theme';
+
+// Clases de separación
+.separator {
+    display: block;
+    height: 1px;
+    width: 100%;
+    background-color: rgba(255,255,255,.25);
+    margin: 0 0 25px;
+    @media screen and (min-width: $bp--medium) {
+        margin: 0 0 30px;
+    }  
+}
+
+// Clases de espaciado
+.mb-1 { margin-bottom: calc(var(--bu) * 1); }
+.mb-2 { margin-bottom: calc(var(--bu) * 2); }
+.mb-3 { margin-bottom: calc(var(--bu) * 3); }
+.mb-4 { margin-bottom: calc(var(--bu) * 4); }
+.mb-5 { margin-bottom: calc(var(--bu) * 5); }
+
+.mt-1 { margin-top: calc(var(--bu) * 1); }
+.mt-2 { margin-top: calc(var(--bu) * 2); }
+.mt-3 { margin-top: calc(var(--bu) * 3); }
+.mt-4 { margin-top: calc(var(--bu) * 4); }
+.mt-5 { margin-top: calc(var(--bu) * 5); }
+
+// Clases de visualización
+.hidden { display: none; }
+.visible { display: block; }
+
+@media screen and (min-width: $bp--medium) {
+  .hidden-md { display: none; }
+  .visible-md { display: block; }
+}
+
+@media screen and (min-width: $bp--large) {
+  .hidden-lg { display: none; }
+  .visible-lg { display: block; }
+}
+
+// Clases de animación
+.appears {
+  opacity: 0;
+  @include translateY(120px);
+  @include transition(1s ease);
+  &--in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// Clases de contenedor
+.container {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: calc(var(--bu) * 2);
+  padding-right: calc(var(--bu) * 2);
+}

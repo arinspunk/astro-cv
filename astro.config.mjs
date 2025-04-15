@@ -2,7 +2,6 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import i18n from 'astro-i18n-aut';
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,25 +18,6 @@ export default defineConfig({
           es: 'es-ES',
           en: 'en-US',
           pt: 'pt-PT'
-        }
-      }
-    }),
-    
-    // Integración de i18n para manejar el multilingüismo
-    i18n({
-      defaultLangCode: 'es',
-      supportedLangCodes: ['en', 'pt'],
-      showDefaultLangCode: false,
-      translations: {},
-      pages: {
-        // Mapeamos las páginas que tienen equivalentes en otros idiomas
-        'index': {
-          en: 'en/cv',
-          pt: 'pt/cv'
-        },
-        'blog/index': {
-          en: 'en/blog',
-          pt: 'pt/blogue'
         }
       }
     })

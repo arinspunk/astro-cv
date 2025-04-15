@@ -1,0 +1,60 @@
+---
+/**
+ * Font Loader Component
+ * Optimized web font loading strategy to reduce CLS and improve performance
+ * This component centralizes all font loading logic in one place
+ */
+---
+
+<!-- Preconnect to Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!-- Preload critical font files -->
+<link 
+  rel="preload" 
+  href="/fonts/sawtonindustrial-thin-webfont.woff2" 
+  as="font" 
+  type="font/woff2" 
+  crossorigin 
+/>
+<link 
+  rel="preload" 
+  href="/fonts/sawtonbauhaus-thin-webfont.woff2" 
+  as="font" 
+  type="font/woff2" 
+  crossorigin 
+/>
+
+<!-- Google Fonts with display=swap for better loading behavior -->
+<link 
+  href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" 
+  rel="stylesheet"
+/>
+
+<!-- Font definitions with optimized loading settings -->
+<style is:global>
+  /* Font Face Declarations */
+  @font-face {
+    font-family: 'sawton_industrialthin';
+    src: url('/fonts/sawtonindustrial-thin-webfont.woff2') format('woff2'),
+         url('/fonts/sawtonindustrial-thin-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* Show text while font is loading */
+  }
+
+  @font-face {
+    font-family: 'sawton_bauhausthin';
+    src: url('/fonts/sawtonbauhaus-thin-webfont.woff2') format('woff2'),
+         url('/fonts/sawtonbauhaus-thin-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* Show text while font is loading */
+  }
+
+  /* Prevent synthetic font faces that can cause CLS */
+  html {
+    font-synthesis: none;
+  }
+</style>

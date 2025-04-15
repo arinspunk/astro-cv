@@ -1,0 +1,76 @@
+---
+// ThemeToggle.astro - Componente para alternar entre temas claro y oscuro
+---
+
+<button id="theme-toggle" aria-label="Cambiar tema" class="c-theme-toggle">
+  <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">☀️</span>
+  <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">🌙</span>
+</button>
+
+<style lang="scss">
+  .c-theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: var(--transition-medium);
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      
+      .theme-dark & {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+    
+    &__icon {
+      position: absolute;
+      transition: var(--transition-medium);
+      
+      &--sun {
+        opacity: 0;
+        transform: rotate(-90deg) scale(0.5);
+        
+        .theme-dark & {
+          opacity: 1;
+          transform: rotate(0) scale(1);
+        }
+      }
+      
+      &--moon {
+        opacity: 1;
+        transform: rotate(0) scale(1);
+        
+        .theme-dark & {
+          opacity: 0;
+          transform: rotate(90deg) scale(0.5);
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  import { toggleTheme, initTheme } from '../utils/styles.js';
+  
+  // Inicializar tema al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    
+    // Configurar botón de cambio de tema
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        const isDarkMode = document.documentElement.classList.contains('theme-dark');
+        toggleTheme(!isDarkMode);
+      });
+    }
+  });
+</script>

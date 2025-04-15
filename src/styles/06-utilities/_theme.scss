@@ -1,0 +1,52 @@
+/*
+ * Utilidades para el tema
+ * Incluye clases para gestionar temas claros/oscuros 
+ * y accesibilidad de colores
+ */
+
+/* Clases para aplicar tema claro/oscuro manualmente */
+.theme-light {
+  --theme-background: var(--color-paper);
+  --theme-foreground: var(--color-ink);
+  --theme-primary: var(--color-link);
+  --theme-accent: var(--color-sun);
+}
+
+.theme-dark {
+  --theme-background: var(--color-deep);
+  --theme-foreground: var(--color-paper);
+  --theme-primary: var(--color-light);
+  --theme-accent: var(--color-sun);
+}
+
+/* Clases para aplicar colores semánticos */
+.bg-primary {
+  background-color: var(--theme-primary);
+  color: var(--theme-background);
+}
+
+.bg-accent {
+  background-color: var(--theme-accent);
+  color: var(--theme-foreground);
+}
+
+.text-primary {
+  color: var(--theme-primary);
+}
+
+.text-accent {
+  color: var(--theme-accent);
+}
+
+/* Utilidades para alto contraste */
+.high-contrast {
+  --color-link: #0040ff;
+  --theme-primary: var(--color-link);
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --color-link: #0040ff;
+    --theme-primary: var(--color-link);
+  }
+}
