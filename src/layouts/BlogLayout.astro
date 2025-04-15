@@ -1,0 +1,91 @@
+---
+/**
+ * Blog Layout
+ * Specific layout for blog posts and blog listing pages
+ * 
+ * @param {string} title - Page title
+ * @param {string} description - Page description for SEO
+ * @param {string} lang - Language code (default: 'es')
+ * @param {object} post - Post data (optional, for single post pages)
+ */
+
+import DefaultLayout from "./DefaultLayout.astro";
+
+// Types
+interface Props {
+  title: string;
+  description: string;
+  lang?: string;
+  image?: string;
+  canonicalUrl?: string;
+  post?: {
+    title: string;
+    publishDate: Date;
+    updatedDate?: Date;
+    author?: string;
+    image?: string;
+    tags?: string[];
+  };
+}
+
+// Props
+const { 
+  title, 
+  description, 
+  lang, 
+  image, 
+  canonicalUrl,
+  post 
+} = Astro.props;
+
+// Format date
+const formatDate = (date: Date, locale: string = 'es') => {
+  return date.toLocaleDateString(locale, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+};
+---
+
+<DefaultLayout 
+  title={title} 
+  description={description} 
+  lang={lang} 
+  image={image || (post?.image ? post.image : undefined)}
+  canonicalUrl={canonicalUrl}
+>
+  <div class="o-wrap c-blog">
+    {post ? (
+      <header class="c-blog__header">
+        <h1 class="c-blog__title">{post.title}</h1>
+        <div class="c-blog__meta">
+          <time datetime={post.publishDate.toISOString()}>
+            {formatDate(post.publishDate, lang)}
+          </time>
+          {post.updatedDate && (
+            <span class="c-blog__updated">
+              Actualizado: <time datetime={post.updatedDate.toISOString()}>
+                {formatDate(post.updatedDate, lang)}
+              </time>
+            </span>
+          )}
+          {post.author && <span class="c-blog__author">Por {post.author}</span>}
+        </div>
+        {post.tags && (
+          <div class="c-blog__tags">
+            {post.tags.map(tag => (
+              <span class="c-blog__tag">{tag}</span>
+            ))}
+          </div>
+        )}
+      </header>
+    ) : null}
+    
+    <div class="c-blog__content">
+      <slot />
+    </div>
+  </div>
+
+  <slot name="scripts" slot="scripts" />
+</DefaultLayout>

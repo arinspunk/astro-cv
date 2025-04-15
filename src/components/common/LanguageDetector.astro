@@ -1,0 +1,127 @@
+---
+/**
+ * Language Detector Component
+ * Detects browser language and suggests the appropriate version
+ * 
+ * @param {string} lang - Current language code
+ */
+
+// Import utilities
+import { t } from '../utils/i18n';
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+
+// Get preferred languages from Astro
+const preferredLocale = Astro.preferredLocale;
+const preferredLocaleList = Astro.preferredLocaleList;
+
+// Only show banner if user is not already on their preferred language page
+const shouldShowBanner = preferredLocale && preferredLocale !== lang;
+
+// URL to redirect to
+const redirectUrl = preferredLocale ? `/${preferredLocale === 'es' ? '' : preferredLocale}` : null;
+
+// Language names for display
+const languageNames = {
+  'es': 'español',
+  'en': 'English',
+  'pt': 'português'
+};
+
+const preferredLanguageName = preferredLocale ? languageNames[preferredLocale as keyof typeof languageNames] : null;
+---
+
+{shouldShowBanner && redirectUrl && (
+  <div class="c-language-detector" id="language-detector">
+    <div class="c-language-detector__content">
+      <p>
+        {lang === 'es' ? (
+          <span>Parece que prefieres ver contenido en <strong>{preferredLanguageName}</strong>. <a href={redirectUrl}>Haz clic aquí</a> para cambiar.</span>
+        ) : lang === 'en' ? (
+          <span>It seems you prefer content in <strong>{preferredLanguageName}</strong>. <a href={redirectUrl}>Click here</a> to switch.</span>
+        ) : (
+          <span>Parece que você prefere conteúdo em <strong>{preferredLanguageName}</strong>. <a href={redirectUrl}>Clique aqui</a> para mudar.</span>
+        )}
+      </p>
+      <button class="c-language-detector__close" id="close-language-detector" aria-label="Cerrar">×</button>
+    </div>
+  </div>
+
+  <script>
+    // Simple script to handle closing the banner and storing preference
+    document.addEventListener('DOMContentLoaded', () => {
+      const banner = document.getElementById('language-detector');
+      const closeButton = document.getElementById('close-language-detector');
+      
+      // Check if banner was previously dismissed
+      const isDismissed = localStorage.getItem('languageBannerDismissed');
+      
+      if (isDismissed === 'true') {
+        banner?.remove();
+      }
+      
+      closeButton?.addEventListener('click', () => {
+        banner?.remove();
+        localStorage.setItem('languageBannerDismissed', 'true');
+      });
+    });
+  </script>
+)}
+
+<style lang="scss">
+  .c-language-detector {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    background-color: var(--color-primary, #0000ff);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-width: 400px;
+    margin: 0 auto;
+    
+    &__content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      p {
+        margin: 0;
+        padding-right: 1rem;
+        
+        a {
+          color: white;
+          text-decoration: underline;
+          font-weight: bold;
+          
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    
+    &__close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,145 @@
+---
+/**
+ * SEO Component
+ * Centralized management of SEO metadata, Open Graph, Twitter Cards, and structured data
+ * 
+ * @param {string} title - Page title
+ * @param {string} description - Page description
+ * @param {string} image - Social image URL
+ * @param {string} canonicalUrl - Canonical URL
+ * @param {string} type - Content type (article, website, etc.)
+ * @param {object} article - Article metadata (for blog posts)
+ * @param {object} person - Person data (for CV)
+ */
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonicalUrl?: string;
+  type?: 'website' | 'article' | 'profile';
+  article?: {
+    publishedTime: Date;
+    modifiedTime?: Date;
+    tags?: string[];
+    section?: string;
+    author?: string;
+  };
+  person?: {
+    name: string;
+    jobTitle: string;
+    url: string;
+    sameAs?: string[];
+  };
+}
+
+const { 
+  title, 
+  description, 
+  image = "/img/xulio-ze-social.png",
+  canonicalUrl,
+  type = "website",
+  article,
+  person
+} = Astro.props;
+
+// Construct the full canonical URL
+const siteUrl = "https://xulioze.com";
+const fullCanonicalUrl = canonicalUrl ? `${siteUrl}${canonicalUrl}` : Astro.url.href;
+
+// Generate JSON-LD structured data
+let structuredData = null;
+
+// Website structured data
+if (type === "website") {
+  structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: title,
+    description: description,
+    url: fullCanonicalUrl
+  };
+}
+
+// Article structured data
+if (type === "article" && article) {
+  structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description: description,
+    image: image,
+    datePublished: article.publishedTime?.toISOString(),
+    dateModified: article.modifiedTime?.toISOString() || article.publishedTime?.toISOString(),
+    author: {
+      "@type": "Person",
+      name: article.author || "Xúlio Zé"
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Xúlio Zé",
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/img/icons/favicon-32x32.png`
+      }
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": fullCanonicalUrl
+    }
+  };
+}
+
+// Person structured data (for CV)
+if (type === "profile" && person) {
+  structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: person.name,
+    jobTitle: person.jobTitle,
+    url: person.url,
+    sameAs: person.sameAs
+  };
+}
+---
+
+<!-- Standard SEO -->
+<meta name="description" content={description} />
+<link rel="canonical" href={fullCanonicalUrl} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={fullCanonicalUrl} />
+<meta property="og:image" content={image} />
+<meta property="og:image:width" content="900" />
+<meta property="og:image:height" content="470" />
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="Xúlio Zé" />
+
+{article && (
+  <>
+    <meta property="article:published_time" content={article.publishedTime?.toISOString()} />
+    {article.modifiedTime && (
+      <meta property="article:modified_time" content={article.modifiedTime.toISOString()} />
+    )}
+    {article.tags?.map(tag => (
+      <meta property="article:tag" content={tag} />
+    ))}
+    {article.section && (
+      <meta property="article:section" content={article.section} />
+    )}
+  </>
+)}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<meta name="twitter:url" content={fullCanonicalUrl} />
+
+<!-- Structured Data (JSON-LD) -->
+{structuredData && (
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+)}

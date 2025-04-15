@@ -1,0 +1,49 @@
+---
+/**
+ * Default Layout
+ * Extends BaseLayout and adds Header and Footer components
+ * Used as the main layout for most pages
+ * 
+ * @param {string} title - Page title
+ * @param {string} description - Page description for SEO
+ * @param {string} lang - Language code (default: 'es')
+ */
+
+import BaseLayout from "./BaseLayout.astro";
+import Header from "../components/common/Header.astro";
+import Footer from "../components/common/Footer.astro";
+import LanguageDetector from "../components/common/LanguageDetector.astro";
+
+// Types
+interface Props {
+  title: string;
+  description: string;
+  lang?: string;
+  image?: string;
+  canonicalUrl?: string;
+}
+
+// Props
+const { title, description, lang = "es", image, canonicalUrl } = Astro.props;
+---
+
+<BaseLayout 
+  title={title} 
+  description={description} 
+  lang={lang} 
+  image={image}
+  canonicalUrl={canonicalUrl}
+>
+  <article>
+    <Header lang={lang} />
+    
+    <slot />
+    
+    <Footer lang={lang} />
+
+    <!-- Language detector to suggest appropriate language version -->
+    <LanguageDetector lang={lang} />
+  </article>
+
+  <slot name="scripts" slot="scripts" />
+</BaseLayout>

@@ -1,0 +1,65 @@
+---
+/**
+ * CV Layout
+ * Specific layout for CV pages with specialized structure
+ * 
+ * @param {string} title - Page title
+ * @param {string} description - Page description for SEO
+ * @param {string} lang - Language code (default: 'es')
+ */
+
+import DefaultLayout from "./DefaultLayout.astro";
+
+// Types
+interface Props {
+  title: string;
+  description: string;
+  lang?: string;
+  image?: string;
+  canonicalUrl?: string;
+}
+
+// Props
+const { title, description, lang, image, canonicalUrl } = Astro.props;
+---
+
+<DefaultLayout 
+  title={title} 
+  description={description} 
+  lang={lang} 
+  image={image}
+  canonicalUrl={canonicalUrl}
+>
+  <!-- CV specific structure -->
+  <div class="c-info o-wrap">
+    <slot name="profile-info" />
+    <div class="c-info__sun-wrap o-block">
+      <div class="c-info__sun">
+        <div class="c-info__sun-ray"></div>
+        <div class="c-info__sun-ray"></div>
+        <div class="c-info__sun-ray"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="c-history">
+    <slot />
+  </div>
+
+  <div class="c-abism">
+    <div class="c-abism__fish-wrap">
+      <img class="c-abism__fish" src="/img/fish.jpg" alt="¡pez víbora!" loading="lazy">
+      <span class="c-abism__text">Aquí no hay cookies!</span>
+      <div class="c-abism__fish-light"></div>
+    </div>
+  </div>
+
+  <slot name="scripts" slot="scripts">
+    <script>
+      // CV specific scripts will go here
+      document.addEventListener('DOMContentLoaded', () => {
+        // Animation logic for CV page can go here
+      });
+    </script>
+  </slot>
+</DefaultLayout>

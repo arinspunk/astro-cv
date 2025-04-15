@@ -1,0 +1,62 @@
+---
+/**
+ * Footer Component
+ * Site footer with social links and copyright information
+ * 
+ * @param {string} lang - Current language code (default: 'es')
+ */
+
+import { t } from '../utils/i18n';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+
+// Current year for copyright
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="c-footer">
+  <div class="o-wrap">
+    <nav class="c-footer__menu o-block">
+      <ul class="c-footer__menu-list">
+        <li class="c-footer__menu-item">
+          <a 
+            class="c-footer__menu-link" 
+            href="https://github.com/arinspunk" 
+            target="_blank" 
+            rel="noopener" 
+            title={t('common.footer.github', lang)}
+          >
+            GitHub
+          </a>
+        </li>
+        <li class="c-footer__menu-item">
+          <a 
+            class="c-footer__menu-link" 
+            href="mailto:hola@xulioze.com" 
+            title={t('common.footer.email', lang)}
+          >
+            Email
+          </a>
+        </li>
+        <li class="c-footer__menu-item">
+          <a 
+            class="c-footer__menu-link" 
+            href="https://www.linkedin.com/in/xulioze/" 
+            target="_blank" 
+            rel="noopener" 
+            title={t('common.footer.linkedin', lang)}
+          >
+            LinkedIn
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <p class="o-block c-footer__credits">
+      {t('common.footer.copyright', lang, { year: currentYear })}
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,103 @@
+---
+/**
+ * Base Layout - Core HTML structure
+ * Used as the foundation for all pages
+ * 
+ * @param {string} title - Page title
+ * @param {string} description - Page description for SEO
+ * @param {string} lang - Language code (default: 'es')
+ */
+
+import FontLoader from "../components/FontLoader.astro";
+import GlobalStyles from "../components/GlobalStyles.astro";
+import SEO from "../components/common/SEO.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: string;
+  image?: string;
+  canonicalUrl?: string;
+  type?: 'website' | 'article' | 'profile';
+  article?: {
+    publishedTime: Date;
+    modifiedTime?: Date;
+    tags?: string[];
+    section?: string;
+    author?: string;
+  };
+  person?: {
+    name: string;
+    jobTitle: string;
+    url: string;
+    sameAs?: string[];
+  };
+}
+
+const { 
+  title, 
+  description, 
+  lang = "es",
+  image = "/img/xulio-ze-social.png",
+  canonicalUrl,
+  type = "website",
+  article,
+  person
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <!-- Initial metas -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Centralized SEO management -->
+    <title>{title}</title>
+    <SEO 
+      title={title}
+      description={description}
+      image={image}
+      canonicalUrl={canonicalUrl}
+      type={type}
+      article={article}
+      person={person}
+    />
+
+    <!-- Copyright and robot control -->
+    <meta name="copyright" content={`(c) ${new Date().getFullYear()} Xúlio Zé`} />
+    <link rel="author" href="/humans.txt" />
+    <meta name="robots" content="index,follow" />
+    <meta name="google" content="nositelinkssearchbox" />
+
+    <!-- iOS -->
+    <meta name="apple-mobile-web-app-title" content={title} />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png" />
+    <link rel="manifest" href="/img/icons/site.webmanifest" />
+    <link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#0000ff" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#00000B" />
+
+    <!-- Optimized font loading -->
+    <FontLoader />
+    
+    <!-- Global styles -->
+    <GlobalStyles />
+
+    <!-- Additional head items -->
+    <slot name="head" />
+  </head>
+  <body class="body">
+    <slot />
+
+    <!-- Scripts -->
+    <slot name="scripts" />
+  </body>
+</html>

@@ -1,0 +1,62 @@
+---
+/**
+ * Header Component
+ * Main navigation and site branding
+ * 
+ * @param {string} lang - Current language code (default: 'es')
+ */
+
+import { t } from '../utils/i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+---
+
+<header class="c-header">
+  <div class="o-wrap">
+    <div class="c-header__logo o-block">
+      XZ
+    </div>
+    <nav class="c-header__menu o-block">
+      <ul class="c-header__menu-list">
+        <li class="c-header__menu-item c-header__menu-item--language">
+          <LanguageSwitcher lang={lang} />
+        </li>
+        <li class="c-header__menu-item">
+          <a 
+            class="c-header__menu-link" 
+            href={getRelativeLocaleUrl(lang, '')} 
+            title={t('common.menu.cv.title', lang)}
+          >
+            {t('common.menu.cv.text', lang)}
+          </a>
+        </li>
+        <li class="c-header__menu-item">
+          <a 
+            class="c-header__menu-link" 
+            href={getRelativeLocaleUrl(lang, lang === 'pt' ? 'blogue' : 'blog')} 
+            title={t('common.menu.blog.title', lang)}
+          >
+            {t('common.menu.blog.text', lang)}
+          </a>
+        </li>
+        <li class="c-header__menu-item">
+          <a 
+            class="c-header__menu-link c-header__menu-link--btn" 
+            href="https://www.linkedin.com/in/xulioze/" 
+            title={t('common.menu.contact.title', lang)} 
+            target="_blank" 
+            rel="noopener"
+          >
+            {t('common.menu.contact.text', lang)}
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

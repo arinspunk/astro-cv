@@ -1,0 +1,119 @@
+---
+/**
+ * Language Switcher Component
+ * Displays links to switch between available languages
+ * 
+ * @param {string} lang - Current language code (default: 'es')
+ * @param {boolean} showLabel - Whether to show the language label (default: false)
+ */
+
+import { t } from '../utils/i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+interface Props {
+  lang?: string;
+  showLabel?: boolean;
+  className?: string;
+}
+
+const { 
+  lang = 'es', 
+  showLabel = false,
+  className = ''
+} = Astro.props;
+
+// Define all available languages
+const allLanguages = [
+  { code: 'es', name: t('common.languages.es', lang) },
+  { code: 'en', name: t('common.languages.en', lang) },
+  { code: 'pt', name: t('common.languages.pt', lang) }
+];
+
+// Remove current language from the list
+const availableLanguages = allLanguages.filter(l => l.code !== lang);
+
+// Generate titles for language links
+const getLanguageTitle = (code: string) => {
+  if (code === 'es') return t('common.languageTitles.es', lang);
+  if (code === 'en') return t('common.languageTitles.en', lang);
+  if (code === 'pt') return t('common.languageTitles.pt', lang);
+  return '';
+};
+
+// Compute class names
+const classes = ['c-language-switcher', className].filter(Boolean).join(' ');
+---
+
+<div class={classes}>
+  {showLabel && (
+    <span class="c-language-switcher__label">
+      {lang.toUpperCase()}
+    </span>
+  )}
+  <ul class="c-language-switcher__list">
+    {availableLanguages.map(({ code, name }) => (
+      <li class="c-language-switcher__item">
+        <a 
+          href={getRelativeLocaleUrl(code)}
+          class="c-language-switcher__link"
+          title={getLanguageTitle(code)}
+          hreflang={code}
+        >
+          <span class="c-language-switcher__code">
+            {code.toUpperCase()}
+          </span>
+          {showLabel && (
+            <span class="c-language-switcher__name">
+              {name}
+            </span>
+          )}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style lang="scss">
+  .c-language-switcher {
+    display: flex;
+    align-items: center;
+    
+    &__label {
+      margin-right: 0.75rem;
+      font-weight: bold;
+    }
+    
+    &__list {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    &__item {
+      margin-right: 0.5rem;
+      
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    
+    &__link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    
+    &__code {
+      font-weight: bold;
+    }
+    
+    &__name {
+      margin-left: 0.25rem;
+    }
+  }
+</style>
